@@ -3,9 +3,8 @@ package org.example.sharemate.user;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Repository
 public class UserRepositoryImpl implements UserRepository{
