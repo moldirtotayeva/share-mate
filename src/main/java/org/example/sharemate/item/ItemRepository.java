@@ -7,9 +7,11 @@ public interface ItemRepository {
 
     Item save(Long userId, Item item);
 
-    List<Item> findAll();
+    List<Item> findAll(Long userId);
 
     Item update(Long userId, Long itemId, ItemDto itemDto);
 
     void validate(Item item);
+
+    List<Item> findByNameOrDescription(String text);
 }

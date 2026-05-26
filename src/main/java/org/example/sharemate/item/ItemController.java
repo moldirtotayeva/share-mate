@@ -24,7 +24,17 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDto> findAll() {
-        return itemService.findAll();
+    public List<ItemDto> findAll(@RequestHeader("X-Sharer-User-Id") Long userId) {
+        return itemService.findAll(userId);
+    }
+
+    @GetMapping("/{id}")
+    public ItemDto getById(@PathVariable Long id) {
+        return itemService.findById(id);
+    }
+
+    @GetMapping("/search")
+    public List<ItemDto> search(@RequestParam String text) {
+        return itemService.findByNameOrDescription(text);
     }
 }

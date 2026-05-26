@@ -36,8 +36,8 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public List<Item> findAll() {
-        return List.of();
+    public List<Item> findAll(Long userId) {
+        return items.values().stream().filter((i) -> i.getUserId().equals(userId)).toList();
     }
 
     @Override
@@ -69,5 +69,19 @@ public class ItemRepositoryImpl implements ItemRepository {
         if (item.getDescription() == null || item.getDescription().trim().isEmpty()) {
             throw new ValidationException("Item description not be empty");
         }
+    }
+
+    @Override
+    public List<Item> findByNameOrDescription(String text) {
+        if (text == null || text.isBlank()) {
+            return List.of();
+        }
+
+        String query = text.toLowerCase();
+        List<Item> result = items.values().stream()
+                .filter(Item::getAvailable)
+                .filter((i) -> i.getName().toLowerCase().contains(query) || i.getDescription().toLowerCase().contains(query))
+                .toList();
+        return result;
     }
 }
